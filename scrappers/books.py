@@ -20,22 +20,20 @@ def scrape_books_by_category(category):
     while url:
         soup = fetch_page(url)
         book_list = soup.find_all('article', class_='product_pod')
-        id = 0
         for book in book_list:
             title = book.h3.a['title']
             price = book.find('p', class_='price_color').get_text()
             availability = book.find('p', class_='instock availability').get_text(strip=True)
             image_url = BASE_URL + book.find('img')['src'].replace('../', '')
+            book_id = title.strip().lower().replace(" ", "_")
             
             books.append({
-                "id": id,
+                "id": book_id,
                 "title": title,
                 "price": price,
                 "availability": availability,
                 "image_url": image_url,
             })
-            print(str_to_json(books))
-            id += 1
         
         # Handle pagination (if any)
         next_button = soup.find('li', class_='next')
