@@ -1,7 +1,5 @@
-from scrappers.categories import getCategoryList
-import json
+from scrappers.books import get_all_books
 
 def main():
-    categories = getCategoryList()
-    print(json.dumps(categories, indent=4))
+    get_all_books()
 main()
