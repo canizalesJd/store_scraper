@@ -8,7 +8,7 @@ category_list =  getCategoryList()
 def get_all_books():
     books = {}
     for category in category_list:
-        books[category["name"]] = scrape_books_by_category(category)
+        books[category["id"]] = scrape_books_by_category(category)
     # save data on a json file for furhter processing
     save_data_to_json(books, "books", "data")
     return books
@@ -26,7 +26,7 @@ def scrape_books_by_category(category):
             availability = book.find('p', class_='instock availability').get_text(strip=True)
             image_url = BASE_URL + book.find('img')['src'].replace('../', '')
             book_id = title.strip().lower().replace(" ", "_")
-            
+
             books.append({
                 "id": book_id,
                 "title": title,
