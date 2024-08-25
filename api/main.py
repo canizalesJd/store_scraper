@@ -1,12 +1,36 @@
+import os
 import json
 from flask import Flask, abort, jsonify, request
 
 app = Flask(__name__)
 
 # Loading JSON data
-with open('../data/books.json') as f:
-    data = json.load(f)
+def get_data():
+    file_path = '../data/books.json'
+    if not os.path.exists(file_path):
+        raise FileNotFoundError(f"The file at {file_path} does not exist.")
+    try:
+        with open(file_path) as f:
+            return json.load(f)
+    except json.JSONDecodeError:
+        raise ValueError("Error decoding JSON data.")
+    except Exception as e:
+        raise RuntimeError(f"An unexpected error occurred: {str(e)}")
 
+# Load data
+try:
+    data = get_data()
+except FileNotFoundError as e:
+    app.logger.error(str(e))
+    data = {}
+except ValueError as e:
+    app.logger.error(str(e))
+    data = {}
+except RuntimeError as e:
+    app.logger.error(str(e))
+    data = {}
+
+@app.route('/products', methods=['GET'])
 # Get all Books
 @app.route('/books')
 def get_books():
