@@ -29,6 +29,15 @@ except (FileNotFoundError, ValueError, RuntimeError) as e:
 def get_books():
     return jsonify(data)
 
+# Get all Categories
+@app.route('/books/categories', methods=['GET'])
+def get_categories():
+    categories = []
+    for category in data:
+        categories.append(category)
+    return jsonify(categories)
+
+
 # Get Books by category name (id)
 @app.route('/books/<category>', methods=['GET'])
 def get_books_by_category(category):

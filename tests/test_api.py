@@ -24,7 +24,6 @@ def test_get_books_by_category(client):
     assert response.status_code == 404
 
 def test_search_books(client):
-    # Assuming there are books with the word 'python' in the title
     response = client.get('/search?q=Space')
     assert response.status_code == 200
     assert response.is_json
@@ -37,3 +36,9 @@ def test_search_books(client):
     # Test search with no query parameter
     response = client.get('/search')
     assert response.status_code == 400
+
+def test_get_categories(client):
+    response = client.get('/books/categories')
+    assert response.status_code == 200
+    assert response.is_json
+    assert len(response.json) > 0
