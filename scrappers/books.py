@@ -1,8 +1,8 @@
 from .utils import *
-from .categories import getCategoryList
+from .categories import get_category_list
 from constants import *
 
-category_list =  getCategoryList()
+category_list =  get_category_list()
 
 # get all books from all categories
 def get_all_books():
