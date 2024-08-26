@@ -28,4 +28,3 @@ def str_to_json(data):
     if data is None:
         raise Exception("Error while formatting data, no data input")
     return json.dumps(data, indent=4)
-

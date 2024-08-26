@@ -20,17 +20,10 @@ def get_data():
 # Load data
 try:
     data = get_data()
-except FileNotFoundError as e:
-    app.logger.error(str(e))
-    data = {}
-except ValueError as e:
-    app.logger.error(str(e))
-    data = {}
-except RuntimeError as e:
+except (FileNotFoundError, ValueError, RuntimeError) as e:
     app.logger.error(str(e))
     data = {}
 
-@app.route('/products', methods=['GET'])
 # Get all Books
 @app.route('/books')
 def get_books():
@@ -40,12 +33,12 @@ def get_books():
 @app.route('/books/<category>', methods=['GET'])
 def get_books_by_category(category):
     category = category.lower().replace(" ", "_")
-    print(category)
     if category in data:
         return jsonify(data[category])
     else:
         abort(404, description="Category not found")
-    
+
+# Search books by title
 @app.route('/search', methods=['GET'])
 def search_books():
     query = request.args.get('q', '').lower()
