@@ -3,10 +3,11 @@ import json
 from flask import Flask, abort, jsonify, request
 
 app = Flask(__name__)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+file_path = os.path.join(BASE_DIR, 'data', 'books.json')
 
 # Loading JSON data
 def get_data():
-    file_path = '../data/books.json'
     if not os.path.exists(file_path):
         raise FileNotFoundError(f"The file at {file_path} does not exist.")
     try:
