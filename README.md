@@ -65,6 +65,8 @@ The API is now deployed and accessible at https://store-scraper-ayca.onrender.co
 
 You can use this URL to make requests to the API endpoints described below.
 
+Caveat: I'm using render's Free Tier for storing the API, this means that the API can take some time to load if iddle at the moment of the request
+
 ## Accessing the API
 
 ### Get all books:
